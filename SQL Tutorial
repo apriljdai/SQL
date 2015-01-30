@@ -1,0 +1,233 @@
+SQL Tutorial
+============
+
+1.	SQL: Structured Query Language
+	--	SQL lets you access and manipulate database
+	--	SQL is an ANSI(American National Standards Institute) Standard
+
+2.	SQL could
+	--	execute queries against a database
+	--	retriever data from a database
+	--	insert records in a database
+	--	update records in a database
+	--	delete records from a database
+	--	create new databases
+	--	create new tables in a database
+	--	stored procedures in a database
+	--	create views in a database
+	--	set permissions on tables, procedures, and views
+
+3.	SQL Syntax
+	--	Database Tables
+		most contains one or more tables
+		- each table is identified by a name
+		- tables contain records(rows) with data
+	--	SQL Statements
+		perform of the actions on a database
+		eg.	SELECT * FROM Name;
+		- SQL is NOT case sensitive
+	-- 	SQL Commands
+		- SELECT (extracts data)
+		- UPDATE (updates data)
+		- DELETE (deletes data)
+		- INSERT INTO (inserts new data)
+		- CREATE DATABASE (creates new)
+		- ALTER DATABASE (modifies)
+		- CREATE TABLE (creates new table)
+		- ALTER TABLE (modifies table)
+		- DROP TABLE (deletes table)
+		- CREATE INDEX (creates index -> search key)
+		- DROP INDEX (deletes index)
+
+4.	SQL SELECT Statement
+	the result is stored in a result table: result-set
+	--	SELECT Column 
+		eg. SELECT ColumnName1, ColumnName2 FROM Name;
+	--	SELECT * 
+		selects all the columns form the Name table
+
+5.	SQL SELECT DISTINCT Statement
+	used to return only distinct(different) values
+	SELECT DISTINCT ColumnName1, ColumnName2 FROM Name;
+
+6.	SQL WHERE Clause
+	used to filter records
+	extract only those records that fulfill a specified criterion
+	--	SELECT ColumnName1, ColumnName2 FROM Name WHERE Column operation value;
+		- require single quotes around text values
+		- no quote around numeric fields
+	--	Operators
+		= equal
+		<> not equal
+		> greater than
+		< less than
+		>= greater or equal
+		<= less or equal
+		BETWEEN between inclusive range
+		LIKE search for a pattern
+		IN specify multiple possible values for a column
+
+7.	SQL AND & OR Operators
+	used to filter records based on more than one codition
+	- AND operator displays a record if both first and second conditions are true
+	- OR operator displays a record if either first or second condition is true
+
+8.	SQL ORDER BY Keyword
+	used to sort the result-set by one or more columns
+	sorts the records in ascending order by default
+	to sort the records in a descending order, use the DESC keyword
+	SELECT ColumnName1, ColumnName2 FROM Name ORDER BY ColumnName, Column ASC|DESC
+
+9.	SQL INSERT INTO Statement
+	used to insert new records in a table
+	--	Syntax
+		- no specific column name
+		  INSERT INTO Name
+		  VALUE (value1, value2, value3...);
+		- specifies both the column names and the values to be inserted
+		  INSERT INTO Name (column1, column2, column3,...)
+		  VALUE (value1, value2, value3,...);
+
+10.	SQL UPDATE Statement
+	used to update existing records in a table
+	--	Syntax
+		UPDATE Name
+		SET column1 = value1, column2 = value2, ...
+		WHERE someColumn = someValue;	//specifies which record or records that should be updated. if no WHERE, all the records will be updated
+
+11.	SQL DELETE Statement
+	used to delete records in a table
+	--	Syntax
+		DELETE FROM tableName
+		WHERE someColumn = someValue;
+	--	Delete all data
+		delete all rows in a table without deleting the table
+		DELETE FROM tableName;
+		DELETE * FROM tableName;
+
+12.	SQL Injection
+	SQL Injection can destroy database
+
+13.	SQL SELECT TOP Clause
+	used ot specify the number of records to return
+	useful on large table with thousands of records
+	--	SQL Server/MS Access Syntax
+		SELECT TOP number|percent columnName(s)
+		FROM tableName;
+	--	equivalent in MySQL
+		SELECT columnName(s)
+		FROM tableName
+		LIMIT number;
+
+14.	SQL LIKE Operator
+	used in a WHERE clause to search for a specified pattern in a column
+	--	Syntax
+		SELECT columnName(s)
+		FROM tableName
+		WHERE columnName LIKE pattern;
+		eg. SELECT * FROM Name WHERE City LIKE 's%';	//"%" sign is used to define wildcards both before and after the pattern (eg. s%: start with s, %s: end with s, %land%: contains land)
+		eg. SELECT * FROM Name WHERE City NOT LIKE '%land%';
+
+15.	SQL Wildcards
+	used to substitute for any other character(s) in a string
+	used with the SQL LIKE operator
+	used to search for data within a table
+	--	Wildcard Characters
+		% substitute for zero or more characters
+		_ substitute for a single character
+		[charlist] sets and ranges of characters to match
+		[^charlist] or [!charlist] matches only a character NOT specified within the brackets
+
+16.	SQL IN Operator
+	specify multiple values in a WHERE clause
+	--	Syntax
+		SELECT columnName(s) FROM tableName WHERE columnName IN (value1, value2,...);
+		eg. SELECT * from Facilities WHERRE Facid in (1,5);	//select value is 1 and 5 in Facid
+
+17.	SQL BETWEEN Operator
+	used to select values within a range
+	values can be numbers, text, or dates
+	--	Syntax
+		SELECT columnName(s) FROM tableName WHERE columnName BETWEEN value1 and value2;
+		eg. SELECT * FROM Products WHERE Price BETWEEN 10 AND 20;	//price between 10 and 20
+		eg.	SELECT * FROM Products WHERE Price NOT BETWEEN 10 and 20;	//price not between 10 and 20
+		eg.SELECT * FROM Products WHERE ProductName BETWEEN 'c' AND 'd';	//product name starts between c and m
+		eg.	SELECT *FROM Orders WHERE OrderDate BETWEEN #07/04/1996# AND #07/09/1996#;
+
+18.	SQL Aliases
+	used to temporarily rename a table or a column heading, a temporary name
+	aliases are created to make column names more readable
+	--	Syntax
+		- for columns
+		  SELECT columnName AS aliasName FROM tableName;
+		- for tables
+		  SELECT columnName(s) FROM tableName AS aliasName;
+	--	Combine columns
+		eg. SELECT CustomerName, Address+','+City+','+PostalCode+','+Country AS Address FROM Customers;	//combine address, city, postalcode and country columns together to an address column
+		eg. SELECT o.OrderID, o.OrderDate, c.CustomerName FROM Custormers AS c, Orders AS o WHERE c.CustomerName="Around the Horn" AND c.CustomerID=o.CustomerID;	//alias customers table to c and orders table to o, change the customerName in o to Around the Horn and change CustomerID in c to CustomerID in o
+
+19.	SQL Joins
+	used to combine rows from two or more tables
+	--	SQL INNER JOIN
+		simple join
+		return all rows from multiple tables where the join condition is met
+		eg. SELECT Orders.OrderID, Customers.CustomerName, Order.OrderData FROM Orders INNOR JOIN Customers ON Orders.CustomerID=Customers.CustomerID;	//select three columns from two tables and make orders table join into customers table, and link with the same customerID in both tables
+	--	Other SQL JOINs
+		- INNER JOIN: returns all rows when there is at least one match in BOTH tables
+		- LEFT JOIN: returns all rows from the left table, and the matched rows from the right table
+		- RIGHT JOIN: returns all rows from the right table, and the matched rows from the left table
+		- FULL JOIN: returns all rows when there is a match in ONE of the tables
+
+20.	SQL INNER JOIN Keyword (A and B intersection)
+	keyword selects all rows from both tables as long as there is a match between the columns in both tables
+	--	Syntax
+		SELECT columnName(s) FROM table1 INNER JOIN table2 ON table1.columnName=table2.columnName;
+		SELECT columnName(s) FROM table1 JOIN table2 ON table1.columnName=table2.columnName;
+
+21.	SQL LEFT JOIN Keyword (A + A and B intersection)
+	returns all rows from the left table (table1), with the matching rows in the right table (table2)
+	the result is NULL in the right side when there is no match
+	--	Syntax
+		SELECT columnName(s) FROM talbe1 LEFT JOIN table2 ON table1.columnName=table2.columnName;
+		SELECT columnName(s) FROM talbe1 LEFT OUTER JOIN table2 ON table1.columnName=table2.columnName;
+
+22.	SQL RIGHT JOIN Keyword (B + A and B intersection)
+	returns all rows from the right table (table2), with the matching rows in the left table(table1)
+	the result is NULL in the left side when there is no match
+	--	Syntax
+		SELECT columnName(s) FROM talbe1 RIGHT JOIN table2 ON table1.columnName=table2.columnName;
+		SELECT columnName(s) FROM talbe1 RIGHT OUTER JOIN table2 ON table1.columnName=table2.columnName;	
+
+23.	SQL FULL OUTER JOIN Keyword (A U B)
+	returns all rows from the left table (table1) and from the right table (table2)
+	combines the result of both LEFT and RIGHT joins
+	--	Syntax
+		SELECT columnName(s) FROM talbe1 FULL OUTER JOIN table2 ON table1.columnName=table2.columnName;
+
+24.	SQL UNION Operator
+	used to combine the result-set of two or more SELECT statements
+	each SELECT statement within the UNION must have the same number of columns
+	the columns must also have similar data types
+	the columns in each SELECT statement must be in the same order
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
