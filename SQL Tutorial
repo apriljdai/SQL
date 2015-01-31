@@ -206,9 +206,110 @@ SQL Tutorial
 
 24.	SQL UNION Operator
 	used to combine the result-set of two or more SELECT statements
-	each SELECT statement within the UNION must have the same number of columns
-	the columns must also have similar data types
-	the columns in each SELECT statement must be in the same order
+	--	SQL UNION
+		each SELECT statement within the UNION must have the same number of columns
+		the columns must also have similar data types
+		the columns in each SELECT statement must be in the same order
+		the column names in the result usually equal to the column names in the first SELECT statement in the UNION
+	--	Syntax
+		SELECT columnName(s) FROM table1 UNION SELECT columnName(s) FROM table2;
+		SELECT columnName(s) FROM table1 UNION ALL ELECT columnName(s) FROM table2;		
+	--	ALL Keyword
+		UNION operator selects only distinct values by default
+		ALL keyword with UNION allows duplicate values
+	--	ALL with WHERE
+
+25.	SQL SELECT INTO Statement
+	copy information from one table and inserts it into another table
+	--	Syntax
+		- copy all columns
+		  SELECT * INTO newTable [IN externaldb] FROM table1;
+		- copy only the columns
+		  SELECT columnName(s) INTO newTable [IN externaldb] FROM table1;
+
+26.	SQL INSERT INTO SELECT Statement
+	copy data from one table and inserts it into an existing table
+	any existing rows in the target table are unaffected
+	--	Syntax
+		- copy all columns
+		  INSERT INTO table2 SELECT * FROM table1;
+		- copy only the columns
+		  INSERT INTO table2 (columnName(s)) SELECT columnName(s) FROM table1;
+
+27.	SQL CREAT DATABASE Statement
+	--	Syntax
+		CREATE DATABASE dbname;
+
+28.	SQL CREATE TABLE Statement
+	used to create a table in a database
+	tables are organized into rows and columns
+	each table must have a name
+	--	Syntax
+		CREATE TABLE tableName(
+		columnName1 dataType(size),
+		columnName2 dataType(size),
+		columnName3 dataType(size),
+		...
+		);
+		//columnName: specify the names of the columns of the table
+		//dataType: specify what type of data the column can hold (eg. varchar, integer, decimal, data...)
+		//size: specify the max length of the column of the table
+
+29.	SQL Constraints
+	used to specify rules for the data in the table
+	the action is aborted by the constraint if there is any violation between the constraint and the data action
+	can be specified when the table is created (inside the CREAT TABLE statement) or after the table is created (inside the ALTER TABLE statement)
+	--	Syntax
+		CREATE TABLE tableName(
+		columnName1 dataType(size) constraintName,
+		columnName2 dataType(size) constraintName,
+		columnName3 dataType(size) constraintName,
+		...
+		);
+	--	Constraints
+		- NOT NULL: indicates that a column cannot store NULL value
+		- UNIQUE: ensures that each row for a column must have a unique value
+		- PRIMARY KEY: combination of NOT NULL and UNIQUE
+		- FOREIGN KEY: ensure the referential integrity of the data in one table to match values in another table
+		- CHECK: ensures that the value in a column meets a specific condition
+		- DEFULT: specifies a default value when specified none for this column
+
+30.	SQL NOT NULL Constraint
+	by default, a table column can hold NULL values
+	enforces a column to NOT accept NULL values, always contain a value
+	cannot insert a new record, or update a record without adding a value to this field
+
+31.	SQL UNIQUE Constraint
+	uniquely identifies each record in a database table
+	provide a guarantee for uniqueness for a column or set of columns
+	can have many UNIQUE constraints per table, but ONLY one PRIMARY KEY constraint per table
+	--	Syntax
+		- on multiple columns
+		  CONSTRAINT newName UNIQUE (columnName1, columnName2)
+		- on one column
+		  UNIQUE (columnName)
+		- when table is already created
+		  ALTER TABLE tableName ADD UNIQUE (columnName)
+		  ALTER TABLE tableName ADD UNIQUE newName UNIQUE (columnName1, columnName2)
+		- DROP a UNIQUE constraint
+		  ALTER TABLE tableName DROP CONSTRAINT newName
+
+32.	SQL PRIMARY KEY Constraint
+	uniquely identifies each record in a database table
+	must contain unique values
+	column cannot contain NULL values
+	each table can have ONLY ONE primary key
+	--	Syntax
+		- on one column
+		  PRIMARY KEY (columnName)
+		- on multiple columns
+		  CONSTRAINT newName PRIMARY KEY (columnName1, columnName2)	//only ONE PRIMARY KEY, but the value of that key is made up of two columns
+		- when table is already created	//the primary key column(s) must already have been declared to not contain NULL values when the table was first created
+		  ALTER TABLE tableName ADD PRIMARY KEY (columnName)
+		  ALTER TABLE tableName ADD CONSTRAINT newName PRIMARY KEY (columnName1, columnName2)
+		- DROP PRIMARY KEY
+		  ALTER TABLE tableName DROP CONSTRAINT keyName
+		  
 
 
 

@@ -1,0 +1,111 @@
+SQL Functions
+=============
+
+1.	SQL Aggregate Functions
+	return a single value, calculated from values in a column
+
+	--	AVG(): returns the average value of a numeric column
+		- Syntax
+		  SELECT AVG(columnName) FROM tableName
+		  eg. SELECT ProductName, Price FROM Products WHERE Price > (SELECT AVG(Price) FROM Products);
+
+	--	COUNT(): returns the number of rows that matches a specified criteria
+		- Syntax
+		  -	returns the number of values (NULL will not be counted) of the specified column
+		  	SELECT COUNT(columnName) FROM tableName;
+		  -	returns the number of records in a table
+		  	SELECT COUNT(*) FROM tableName;
+		  -	returns the number of distinct values of the specified column
+		  	SELECT COUNT(DISTINCT columnName) FROM tableName;
+
+	--	FIRST(): returns the first value of the selected column
+		- Syntax
+		  SELECT FIRST(columnName) FROM tableName;
+
+	--	LAST(): returns the last value of the selected column
+		- Syntax
+		  SELECT LAST(columnName) FROM tableName;
+
+	--	MAX(): returns the largest value of the selected column
+		- Syntax
+		  SELECT MAX(columnName) FROM tableName;
+
+	--	MIN(): returns the smallest value of the selected column
+		- Syntax
+		  SELECT MIN(columnName) FROM tableName;
+
+	--	SUM(): returns the sum of a numeric column
+		- Syntax
+		  SELECT SUM(columnName) FROM tableName;
+
+2.	SQL Scalar Functions
+	return a single value, based on the input value
+
+	--	UCASE(): converts a field to upper case
+		- Syntax
+		  SELECT UCASE(columnName) FROM tableName;
+
+	--	LCASE(): converts a field to lower case
+		- Syntax
+		  SELECT LCASE(columnName) FROM tableName;
+
+	--	MID(): extract characters from a text field
+		- Syntax
+		  SELECT MID(columnName, start[, length]) AS someName FROM tableName;
+		  //columnName: required, the field to extract characters from
+		  //start: required, specifies the starting position (starts at 1)
+		  //length: optional, the number of characters to return, returns the rest of the text if ommited
+		- for SQL Server
+		  SELECT SUBSTRING(columnName, start, length) AS someName FROM tableName;
+
+	--	LEN(): returns the length of a text field
+		- Syntax
+		  SELECT LEN(columnName) FROM tableName;
+
+	--	ROUND(): rounds a numeric field to the number of decimals specified
+		- Syntax
+		  SELECT ROUND(columnName, decimals) FROM tableName;
+		  //countName: required, the field to round
+		  //decimals: required, specifies the number of decimals to be returned
+
+	--	NOW(): returns the current system date and time
+		- Syntax
+		  SELECT NOW() FROM tableName;
+		  
+	--	FORMAT(): formats how a field is to be displayed
+
+3.	SQL GROUP BY Statement
+	Aggregate functions often need an added GROUP BY statement to group the result-set by one or more columns
+	--	Syntax
+		SELECT columnName, aggregate_function(columnName) FROM tableName
+		WHERE columnName operator value
+		GROUP BY columnName;
+
+4.	SQL HAVING Clause
+	WHERE keyword could not be used with aggregate functions
+	--	Syntax
+		SELECT columnName, aggregateFunction(columnName)
+		FROM tableName
+		WHERE columnName operator value
+		GROUP BY columnName
+		HAVING aggregateFunction(columnName) operator value;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
