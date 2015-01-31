@@ -71,8 +71,13 @@ SQL Functions
 	--	NOW(): returns the current system date and time
 		- Syntax
 		  SELECT NOW() FROM tableName;
-		  
+
 	--	FORMAT(): formats how a field is to be displayed
+		- Syntax
+		  SELECT FORMAT(columnName, format) FROM tableName;
+		  //columnName: required, the field to be formatted
+		  //format: required, specifies the format
+
 
 3.	SQL GROUP BY Statement
 	Aggregate functions often need an added GROUP BY statement to group the result-set by one or more columns
@@ -80,6 +85,7 @@ SQL Functions
 		SELECT columnName, aggregate_function(columnName) FROM tableName
 		WHERE columnName operator value
 		GROUP BY columnName;
+
 
 4.	SQL HAVING Clause
 	WHERE keyword could not be used with aggregate functions
@@ -91,7 +97,15 @@ SQL Functions
 		HAVING aggregateFunction(columnName) operator value;
 
 
-
+5.	SQL Hosting
+	If you want your web site to be able to store and retrieve data from a database, your web server should have access to a database-system that uses the SQL language. If your web server is hosted by an Internet Service Provider (ISP), you will have to look for SQL hosting plans. The most common SQL hosting databases are MS SQL Server, Oracle, MySQL, and MS Access.
+	--	MS SQL Server
+		Microsoft's SQL Server is a popular database software for database-driven web sites with high traffic.
+		SQL Server is a very powerful, robust and full featured SQL database system.
+	--	MySQL
+		MySQL is also a popular database software for web sites.
+		MySQL is a very powerful, robust and full featured SQL database system.
+		MySQL is an inexpensive alternative to the expensive Microsoft and Oracle solutions.
 
 
 
